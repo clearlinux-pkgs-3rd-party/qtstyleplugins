@@ -4,7 +4,7 @@
 #
 Name     : qtstyleplugins
 Version  : 1
-Release  : 1
+Release  : 2
 URL      : https://github.com/qt/qtstyleplugins/tarball/master
 Source0  : https://github.com/qt/qtstyleplugins/tarball/master
 Summary  : No detailed summary available
@@ -15,6 +15,11 @@ BuildRequires : buildreq-qmake
 BuildRequires : pkgconfig(Qt5Core)
 BuildRequires : pkgconfig(Qt5Gui)
 BuildRequires : pkgconfig(Qt5Widgets)
+BuildRequires : pkgconfig(gtk+-2.0)
+BuildRequires : qtbase-staticdev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 No detailed description available
@@ -53,7 +58,7 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1586782281
+export SOURCE_DATE_EPOCH=1586783607
 rm -rf %{buildroot}
 %make_install
 
@@ -62,14 +67,18 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
+/usr/lib64/cmake/Qt5Gui/Qt5Gui_QGtk2ThemePlugin.cmake
 /usr/lib64/cmake/Qt5Widgets/Qt5Widgets_QBB10StylePlugin.cmake
 /usr/lib64/cmake/Qt5Widgets/Qt5Widgets_QCleanlooksStylePlugin.cmake
+/usr/lib64/cmake/Qt5Widgets/Qt5Widgets_QGtk2StylePlugin.cmake
 /usr/lib64/cmake/Qt5Widgets/Qt5Widgets_QMotifStylePlugin.cmake
 /usr/lib64/cmake/Qt5Widgets/Qt5Widgets_QPlastiqueStylePlugin.cmake
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/qt5/plugins/platformthemes/libqgtk2.so
 /usr/lib64/qt5/plugins/styles/libbb10styleplugin.so
 /usr/lib64/qt5/plugins/styles/libqcleanlooksstyle.so
+/usr/lib64/qt5/plugins/styles/libqgtk2style.so
 /usr/lib64/qt5/plugins/styles/libqmotifstyle.so
 /usr/lib64/qt5/plugins/styles/libqplastiquestyle.so
